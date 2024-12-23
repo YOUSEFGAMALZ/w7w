@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>World 7 Wonders</title>
+  <style>
+    /* General body styling */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #000000;
+      overflow: hidden;
+    }
+
+    /* Card container to hold all cards */
+    .card-container {
+      display: flex;
+      overflow: hidden;
+      width: 80%;
+      position: relative;
+    }
+
+    /* Styling for each card */
+    .card {
+      all: unset; /* Reset default button styles */
+      display: flex;
+      flex: 0 0 300px;
+      height: 200px;
+      margin: 0 10px;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    /* Hover and active effects for cards */
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card:active {
+      transform: scale(0.95);
+    }
+
+    /* Navigation button styles */
+    .nav-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #ffffff;
+      color: rgb(0, 0, 0);
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease;
+    }
+
+    .nav-button:hover {
+      background-color: #2e2e2f;
+    }
+
+    .nav-button.prev {
+      left: 10px;
+    }
+
+    .nav-button.next {
+      right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Card Container -->
+  <div class="card-container">
+    {% for card in cards %}
+      <a href="{{ card.link }}" class="card" 
+         style="background-image: url('{{ card.backgroundImage }}');">
+        <h2>{{ card.title }}</h2>
+        <p>{{ card.content }}</p>
+      </a>
+    {% endfor %}
+  </div>
+
+  <!-- Navigation Buttons -->
+  <button class="nav-button prev">&larr;</button>
+  <button class="nav-button next">&rarr;</button>
+
+  <!-- JavaScript for Navigation -->
+  <script>
+    const container = document.querySelector('.card-container');
+    const prevButton = document.querySelector('.nav-button.prev');
+    const nextButton = document.querySelector('.nav-button.next');
+
+    const scrollAmount = 310; // card width + margin
+
+    prevButton.addEventListener('click', () => {
+      container.scrollBy({
+        left: -scrollAmount,
+        behavior: 'smooth'
+      });
+    });
+
+    nextButton.addEventListener('click', () => {
+      container.scrollBy({
+        left: scrollAmount,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+</body>
+</html>
